@@ -17,6 +17,8 @@ func Check(e error) {
 
 // CheckForPAR2Header makes sure a file at the given path
 // has a valid PAR2 header.
+// FIXME: This reads the whole file, and looks at
+// the first 8 bytes... should be improved.
 func CheckForPAR2Header(file string) (bool, error) {
 
 	// Does the file exist?
