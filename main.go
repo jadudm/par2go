@@ -3,15 +3,16 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"jadud.com/par2go/packets"
+	"jadud.com/par2go/verify"
 )
 
 // checkInputFile makes sure the string passed on the
 // command line is a file, and a valid PAR2 file to boot.
 func checkInputFile(file string) {
-	_, e1 := CheckForFile(file)
-	Check(e1)
-	_, e2 := CheckForPAR2Header(file)
-	Check(e2)
+	_, e1 := verify.CheckForFile(file)
+	verify.Check(e1)
 }
 
 func main() {
@@ -25,7 +26,8 @@ func main() {
 	file := args[0]
 	fmt.Printf("%s OK\n", file)
 	f, err := os.Open(file)
-	Check(err)
-	pkt := ReadPacketHeader(*f, 0)
-	fmt.Println(pkt)
+	verify.Check(err)
+	header, body := packets.ReadPacket(*f, 0)
+	fmt.Println(header)
+	fmt.Println(body)
 }
